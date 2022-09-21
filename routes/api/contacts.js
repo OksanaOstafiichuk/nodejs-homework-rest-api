@@ -9,11 +9,8 @@ router.get('/', async (req, res, next) => {
     res.status(200).json(contacts)
     
   } catch (error) {
-
-    res.status(500).json({message: error.messages})
+    next(error)
   }
-
-  next()
 })
 
 router.get('/:contactId', async (req, res, next) => {
@@ -27,11 +24,8 @@ router.get('/:contactId', async (req, res, next) => {
 
     res.status(200).json(contactById)
   } catch (error) {
-    
-    res.status(500).json({message: error.messages})
+    next(error)
   }
-
-  next()
 })
 
 router.post('/', async (req, res, next) => {
@@ -41,11 +35,8 @@ router.post('/', async (req, res, next) => {
 
     res.status(201).json(newContact);
   } catch (error) {
-
-    res.status(500).json({message: error.messages})
+    next(error)
   }
-
-  next()
 })
 
 router.delete('/:contactId', async (req, res, next) => {
@@ -59,11 +50,8 @@ router.delete('/:contactId', async (req, res, next) => {
     res.status(200).json({message: "Contact deleted"})
 
   } catch (error) {
-
-    res.status(500).json({ message: error.messages })
+    next(error)
   }
-
-  next()
 })
 
 router.put('/:contactId', async (req, res, next) => {
@@ -82,7 +70,7 @@ router.put('/:contactId', async (req, res, next) => {
     res.status(200).json(contactUpdate); 
 
   } catch (error) {
-    res.status(500).json({message: error.messages})
+    next(error)
   }
 })
 
