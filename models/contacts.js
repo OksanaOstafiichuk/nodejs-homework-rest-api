@@ -16,7 +16,7 @@ const getContactById = async (contactId) => {
   const contacts = await listContacts();
   const contactById = contacts.find(contact => String(contact.id) === String(contactId));
 
-  return contactById;
+  return contactById || null;
 }
 
 const removeContact = async (contactId) => {
@@ -53,7 +53,7 @@ const updateContact = async (contactId, body) => {
 
   const contactUpdate = { ...contacts[index], ...body }
 
-  // await fs.writeFile(contactsPath, JSON.stringify([...contacts, contactUpdate]))
+  await fs.writeFile(contactsPath, JSON.stringify([...contacts, contactUpdate], null, 2))
   return contactUpdate;
 }
 

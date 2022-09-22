@@ -46,8 +46,7 @@ router.post("/", async (req, res, next) => {
         .required(),
 
       phone: Joi.string()
-        .length(10)
-        .pattern(/^[0-9]+$/, "numbers")
+        // .pattern(/^[0-9]+$/, "numbers")
         .required(),
     });
 
@@ -89,8 +88,7 @@ router.put("/:contactId", async (req, res, next) => {
         .optional(),
 
       phone: Joi.string()
-        .length(10)
-        .pattern(/^[0-9]+$/, "numbers")
+        // .pattern(/^[0-9]+$/, "numbers")
         .optional(),
     });
 
