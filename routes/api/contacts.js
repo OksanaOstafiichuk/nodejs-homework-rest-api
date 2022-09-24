@@ -9,12 +9,14 @@ const {
   updateContact,
 } = require("../../models/contacts.js");
 
+const {RequestError} = require('../../helpers')
+
 const router = express.Router();
 
 router.get("/", async (req, res, next) => {
   try {
     const contacts = await listContacts();
-    res.status(200).json(contacts);
+    res.json(contacts);
   } catch (error) {
     next(error);
   }
@@ -26,10 +28,10 @@ router.get("/:contactId", async (req, res, next) => {
     const contactById = await getContactById(contactId);
 
     if (!contactById) {
-      return res.status(404).json({ message: "Not found" });
+      throw RequestError(404, "Not found");
     }
 
-    res.status(200).json(contactById);
+    res.json(contactById);
   } catch (error) {
     next(error);
   }
@@ -53,7 +55,7 @@ router.post("/", async (req, res, next) => {
     const validationResult = schema.validate(req.body)
 
     if (validationResult.error) {
-      return res.status(400).json({ message: "missing required name field"})
+      throw RequestError(404, "missing required name field");
     }
 
     const newContact = await addContact(body);
@@ -70,9 +72,10 @@ router.delete("/:contactId", async (req, res, next) => {
     const findContactById = await removeContact(contactId);
 
     if (!findContactById) {
-      return res.status(404).json({ message: "Not found" });
+      throw RequestError(404, "Not found");
     }
-    res.status(200).json({ message: "Contact deleted" });
+
+    res.json({ message: "Contact deleted" });
   } catch (error) {
     next(error);
   }
@@ -102,13 +105,14 @@ router.put("/:contactId", async (req, res, next) => {
     const body = req.body;
 
     if (body === null) {
-      return res.status(400).json({ message: "Missing fields" });
+      throw RequestError(400, "Missing fields");
     }
 
     const contactUpdate = await updateContact(contactId, body);
     if (!contactUpdate) {
-      return res.status(404).json({ message: "Not found" });
+      throw RequestError(404, "Not found");
     }
+    
     res.status(200).json(contactUpdate);
   } catch (error) {
     next(error);
