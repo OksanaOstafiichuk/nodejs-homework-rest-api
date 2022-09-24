@@ -3,7 +3,6 @@ const path = require('path');
 const { randomUUID} = require('crypto');
 
 const contactsPath = path.join(__dirname, 'contacts.json')
-// console.log(contactsPath)
 
 const listContacts = async () => {
   const date = await fs.readFile(contactsPath);
