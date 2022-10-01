@@ -12,4 +12,12 @@ const bodySchema = Joi.object({
   favorite: Joi.boolean()
 });
 
-module.exports = bodySchema;
+const updateByFavoriteSchema = Joi.object({
+  favorite: Joi.boolean()
+  .required()
+})
+
+module.exports = {
+  bodySchema,
+  updateByFavoriteSchema
+};
