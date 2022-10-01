@@ -10,6 +10,6 @@ router.get("/", getAll);
 router.get("/:contactId", getById);
 router.post("/", validateBody(bodySchema),add);
 router.delete("/:contactId", removeById);
-router.put("/:contactId", updateById);
+router.put("/:contactId", validateBody(bodySchema), updateById);
 
 module.exports = router;
