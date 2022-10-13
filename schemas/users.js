@@ -11,7 +11,12 @@ const loginSchema = Joi.object({
     email: Joi.string().required(),
 });
 
+const updateBySubscriptionSchema = Joi.object({
+    subscription: Joi.string().valid("starter", "pro", "business").required()
+})
+
 module.exports = {
     registerSchema,
-    loginSchema
+    loginSchema,
+    updateBySubscriptionSchema,
 }
